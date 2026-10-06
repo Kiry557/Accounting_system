@@ -27,7 +27,7 @@ def checkCriticalLevelStock():
 
         return error_criticalLevel
     except psycopg.Error as e:
-        print('Ошибка запроса к базе', e)
+        return ('Ошибка запроса к базе', e)
     finally:
         release_connection(conn)
 
@@ -45,11 +45,11 @@ def checkPossibilWrite(name_item, quantity_write, type_operation):
         if type_operation == "writeOffQuantity":
             return not stock - quantity_write <= 0
     except psycopg.Error as e:
-        print('Ошибка запроса к базе', e)
+        return ('Ошибка запроса к базе', e)
     finally:
         release_connection(conn)
 
-# получение даных о списании и формирование строки с
+# Получение даных о списании и формирование строки с
 def transaction(id_product, type_transaction,quantity, commit):
     conn = get_connection()
     try:
@@ -61,7 +61,7 @@ def transaction(id_product, type_transaction,quantity, commit):
             (id_product, type_transaction, quantity, units, date_today, commit))
         conn.commit()
     except psycopg.Error as e:
-        print('Ошибка запроса к базе', e)
+        return ('Ошибка запроса к базе', e)
 
     finally:
         release_connection(conn)
@@ -80,7 +80,7 @@ def updateStockQuantity(name_item, new_stock, type_operation, commit):
             transaction(name_item,type_operation, new_stock, commit)
             return "Операция успешно выполнена"
     except psycopg.Error as e:
-        print('Ошибка запроса к базе', e)
+        return ('Ошибка запроса к базе', e)
 
     finally:
         release_connection(conn)

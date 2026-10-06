@@ -1,5 +1,7 @@
-from psycopg_pool import ConnectionPool
 import atexit
+
+from psycopg_pool import ConnectionPool
+
 # import streamlit as st
 
 # @st.cache_resource

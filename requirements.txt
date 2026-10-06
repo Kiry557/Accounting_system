@@ -1,2 +1,5 @@
-psycopg2
-
+psycopg==3.3.6
+streamlit==1.65.0
+psycopg-pool==3.3.3
+pandas==3.0.6
+openpyxl==3.1.5

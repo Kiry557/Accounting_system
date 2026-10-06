@@ -15,11 +15,10 @@ def insert_item(name, category, unit, critical_balance):
         conn.commit()
         return "Успешное добавление карточки товара"
     except Exception as e:  # noqa: BLE001
-        # ВАЖНО: Если что-то пошло не так (например, дубликат или ошибка типа),
-        # обязательно откатываем транзакцию перед тем, как вернуть коннект в пул
+        # Обязательно откатываем транзакцию перед тем, как вернуть коннект в пул
         conn.rollback()
 
-        print(f'Ошибка при добавлении товара: {e}')
+        return (f'Ошибка при добавлении товара: {e}')
     finally:
         release_connection(conn)
 
@@ -33,7 +32,7 @@ def delete_item(id):
         conn.commit()
         return "Успешное удаление карточки товара"
     except Exception as e:  # noqa: BLE001
-        print(f'Ошибка при удалении товара: {e}')
+        return (f'Ошибка при удалении товара: {e}')
     finally:
         release_connection(conn)
 
@@ -50,6 +49,6 @@ def select_item(form, data):
         conn.rollback()
         return rows
     except Exception as e:  # noqa: BLE001
-        print(f'Ошибка поиске товара: {e}')
+        return (f'Ошибка поиске товара: {e}')
     finally:
         release_connection(conn)
