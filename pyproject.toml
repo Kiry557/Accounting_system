@@ -1,0 +1,23 @@
+[project]
+name = "accounting-system"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "qyuro", email = "ur.qyuro@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "nicegui==3.18.0",
+    "openpyxl==3.1.5",
+    "pandas==3.0.6",
+    "psycopg==3.3.6",
+    "psycopg-pool==3.3.3",
+]
+
+[project.scripts]
+accounting-system = "accounting_system:main"
+
+[build-system]
+requires = ["uv_build>=0.12.17,<0.13.0"]
+build-backend = "uv_build"

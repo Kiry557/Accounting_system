@@ -1,0 +1,31 @@
+# from database import insert_item,select_item
+import streamlit as st
+
+###Базовое созщдание начала сайта(иконки + оформление в начале)
+st.set_page_config(
+    page_title="SRW-склад",
+    page_icon="📦",
+    layout="wide",
+)
+st.title("SRW",text_alignment="left")
+st.caption("Управление карточками товара")
+
+if "page" not in st.session_state:
+    st.session_state.page = "see"
+
+###Создание 3 кнопок
+col1,col2,col3 = st.columns(3)
+with col1:
+    if st.button("Insert",use_container_width=True):
+        st.session_state.page = "insert"
+with col2:
+    if st.button(label="Delete",use_container_width=True):
+        st.session_state.page = "delete"
+with col3:
+    if st.button(label="Select",use_container_width=True):
+        st.session_state.page = "select"
+
+# st.divider() ###ВООБЩЕ ХЗ БЛЯТЬ ЧТО ЭТО
+if st.session_state.page == "insert":
+    st.subheader("New card for item")
+    
