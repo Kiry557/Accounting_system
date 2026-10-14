@@ -84,3 +84,28 @@ def updateStockQuantity(name_item, new_stock, type_operation, commit):
 
     finally:
         release_connection(conn)
+
+
+def viewFull_cardsItem():
+    conn = get_connection()
+    try:
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM item")
+        rows_item = cur.fetchall()
+        cur.execute("SELECT quantity FROM stock")
+        rows_stock = cur.fetchall()
+        item = []
+        stock = []
+        for row_item in rows_item:
+            for row_stock in rows_stock:
+                #Пример вывода данных
+                #  item [id | name | category | critical balance | unit ]|| [stock (quantity)]
+                # ([[8, 'молоко', 'продукты', 10, 'Л']], [10])
+                mas_item = [row_item[0],row_item[1],row_item[2],row_item[-1],row_item[3]]
+                item.append(mas_item)
+                stock.append(row_stock[0])
+        return item, stock
+    except psycopg.Error as e:
+        return ("Ошибка доступа к базе:" , e)
+    finally:
+        release_connection(conn)

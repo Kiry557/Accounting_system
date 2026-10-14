@@ -4,6 +4,7 @@ from services.stock_service import (
     checkPossibilWrite,
     transaction,
     updateStockQuantity,
+    viewFull_cardsItem,
 )
 
 __all__ = [
@@ -11,5 +12,6 @@ __all__ = [
     "checkPossibilWrite",
     "forming_report",
     "transaction",
-    "updateStockQuantity"
+    "updateStockQuantity",
+    "viewFull_cardsItem"
 ]
