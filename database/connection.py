@@ -1,5 +1,5 @@
 import atexit
-
+import os
 from psycopg_pool import ConnectionPool
 
 # import streamlit as st
@@ -9,8 +9,15 @@ def _init_pool():
     pool = ConnectionPool(
         min_size=1,
         max_size=10,
-        conninfo='dbname=accounting_system user=postgres host=127.0.0.1 port=5432',
-        open=True
+        # conninfo='dbname=accounting_system user=postgres host=127.0.0.1 port=5432',
+        kwargs={
+            "dbname": os.getenv("DB_NAME", "accounting_system"),
+            "user": os.getenv("DB_USER", "postgres"),
+            "password": os.environ["DB_PASSWORD"],
+            "host": os.getenv("DB_HOST", "127.0.0.1"),
+            "port": int(os.getenv("DB_PORT", "5432")),
+        },
+        open=True,
     )
     atexit.register(pool.close)
     return pool
